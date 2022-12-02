@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		262DD0132939C76A0004BC68 /* data in CopyFiles */ = {isa = PBXBuildFile; fileRef = 262DD0122939C7580004BC68 /* data */; };
 		2638DD8229387148006198DA /* test in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2638DD8029387130006198DA /* test */; };
-		2638DD8A29387242006198DA /* data in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2638DD892938723C006198DA /* data */; };
 		267873D62938227A00638D98 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267873D52938227A00638D98 /* main.swift */; };
 		267873DE2938258000638D98 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267873DC2938258000638D98 /* Utils.swift */; };
 		267873DF2938258000638D98 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267873DD2938258000638D98 /* Template.swift */; };
@@ -46,7 +46,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				2638DD8A29387242006198DA /* data in CopyFiles */,
+				262DD0132939C76A0004BC68 /* data in CopyFiles */,
 				2638DD8229387148006198DA /* test in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,8 +54,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		262DD0122939C7580004BC68 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = data; sourceTree = "<group>"; };
 		2638DD8029387130006198DA /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test; sourceTree = "<group>"; };
-		2638DD892938723C006198DA /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../../../Desktop/data; sourceTree = "<group>"; };
 		267873D22938227A00638D98 /* AoC2022 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AoC2022; sourceTree = BUILT_PRODUCTS_DIR; };
 		267873D52938227A00638D98 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		267873DC2938258000638D98 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -121,8 +121,8 @@
 				267873DD2938258000638D98 /* Template.swift */,
 				267873DC2938258000638D98 /* Utils.swift */,
 				267873E7293828A300638D98 /* days */,
+				262DD0122939C7580004BC68 /* data */,
 				2638DD8029387130006198DA /* test */,
-				2638DD892938723C006198DA /* data */,
 			);
 			path = AoC2022;
 			sourceTree = "<group>";
