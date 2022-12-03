@@ -121,8 +121,8 @@
 				267873DD2938258000638D98 /* Template.swift */,
 				267873DC2938258000638D98 /* Utils.swift */,
 				267873E7293828A300638D98 /* days */,
-				262DD0122939C7580004BC68 /* data */,
 				2638DD8029387130006198DA /* test */,
+				262DD0122939C7580004BC68 /* data */,
 			);
 			path = AoC2022;
 			sourceTree = "<group>";

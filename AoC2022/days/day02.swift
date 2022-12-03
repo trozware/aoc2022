@@ -28,8 +28,8 @@ func day02(testData: [String], realData: [String]) {
       let elfMove = line[0]
       let yourMove = line[2]
 
-      // totalScore += gameResult1(elfMove, yourMove)
-      totalScore += gameResult2(elfMove, yourMove)
+      // totalScore += gameResult1(elfMove, yourMove)  // Part 1: 13052
+      totalScore += gameResult2(elfMove, yourMove)  // Part 1: 13693
     }
 
     return totalScore
