@@ -20,7 +20,7 @@ func readFile(url: URL?, separator: String = "\n") -> [String] {
   }
 
   let dataParts = data
-    .trimmingCharacters(in: .whitespacesAndNewlines)
+    .trimmingCharacters(in: .newlines)
     .components(separatedBy: separator)
   return dataParts
 }
