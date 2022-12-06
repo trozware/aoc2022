@@ -38,73 +38,54 @@ func day02(testData: [String], realData: [String]) {
   func gameResult1(_ elf: String, _ you: String) -> Int {
     let elfPlays = ["A": "Rock", "B": "Paper", "C": "Scissors"]
     let yourPlays = ["X": "Rock", "Y": "Paper", "Z": "Scissors"]
-    let yourPoints = ["X": 1, "Y": 2, "Z": 3]
+    let yourPoints = ["Rock": 1, "Paper": 2, "Scissors": 3]
+    let gameResults = [
+      "Rock-Rock": 3,
+      "Rock-Paper": 6,
+      "Rock-Scissors": 0,
+      "Paper-Rock": 0,
+      "Paper-Paper": 3,
+      "Paper-Scissors": 6,
+      "Scissors-Rock": 6,
+      "Scissors-Paper": 0,
+      "Scissors-Scissors": 3
+    ]
 
     let elfChoice = elfPlays[elf]!
     let yourChoice = yourPlays[you]!
-    let yourPoint = yourPoints[you]!
+    let yourPoint = yourPoints[yourChoice]!
 
-    if elfChoice == yourChoice {
-      return 3 + yourPoint
-    }
+    let game = "\(elfChoice)-\(yourChoice)"
+    let result = gameResults[game]!
 
-    if elfChoice == "Rock" {
-      if yourChoice == "Paper" {
-        return 6 + yourPoint
-      } else if yourChoice == "Scissors" {
-        return 0 + yourPoint
-      }
-    } else if elfChoice == "Paper" {
-      if yourChoice == "Scissors" {
-        return 6 + yourPoint
-      } else if yourChoice == "Rock" {
-        return 0 + yourPoint
-      }
-    } else if elfChoice == "Scissors" {
-      if yourChoice == "Rock" {
-        return 6 + yourPoint
-      } else if yourChoice == "Paper" {
-        return 0 + yourPoint
-      }
-    }
-
-    return 3 + yourPoint
+    return result + yourPoint
   }
 
   func gameResult2(_ elf: String, _ result: String) -> Int {
     let elfPlays = ["A": "Rock", "B": "Paper", "C": "Scissors"]
     let yourResults = ["X": "lose", "Y": "draw", "Z": "win"]
     let yourPoints = ["Rock": 1, "Paper": 2, "Scissors": 3]
+    let gameResults = [
+      "Rock-lose": "Scissors",
+      "Rock-win": "Paper",
+      "Rock-draw": "Rock",
+      "Paper-lose": "Rock",
+      "Paper-win": "Scissors",
+      "Paper-draw": "Paper",
+      "Scissors-lose": "Paper",
+      "Scissors-win": "Rock",
+      "Scissors-draw": "Scissors"
+    ]
+    let resultPoints = ["lose": 0, "draw": 3, "win": 6]
 
     let elfChoice = elfPlays[elf]!
     let yourResult = yourResults[result]!
 
-    if elfChoice == "Rock" {
-      if yourResult == "win" {
-        return 6 + yourPoints["Paper"]!
-      } else if yourResult == "lose" {
-        return 0 + yourPoints["Scissors"]!
-      } else {
-        return 3 + yourPoints["Rock"]!
-      }
-    } else if elfChoice == "Paper" {
-      if yourResult == "win" {
-        return 6 + yourPoints["Scissors"]!
-      } else if yourResult == "lose" {
-        return 0 + yourPoints["Rock"]!
-      } else {
-        return 3 + yourPoints["Paper"]!
-      }
-    } else if elfChoice == "Scissors" {
-      if yourResult == "win" {
-        return 6 + yourPoints["Rock"]!
-      } else if yourResult == "lose" {
-        return 0 + yourPoints["Paper"]!
-      } else {
-        return 3 + yourPoints["Scissors"]!
-      }
-    }
+    let game = "\(elfChoice)-\(yourResult)"
+    let yourChoice = gameResults[game]!
+    let yourPoint = yourPoints[yourChoice]!
 
-    return 0
+    let score = yourPoint + resultPoints[yourResult]!
+    return score
   }
 }
