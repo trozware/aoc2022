@@ -63,8 +63,7 @@ func day07(testData: [String], realData: [String]) {
     //    print(rootDir)
     //    print()
 
-    var dirSizes: [String: Int] = [:]
-    rootDir.gatherSizes(&dirSizes)
+    let dirSizes = rootDir.gatherSizes([:])
 
     //    print()
     //    print(dirSizes)
@@ -113,13 +112,16 @@ func day07(testData: [String], realData: [String]) {
       self.name = name
     }
 
-    func gatherSizes(_ dirSizes: inout [String: Int]) {
+    func gatherSizes(_ dirSizes: [String: Int]) -> [String: Int] {
       // print("\(dirPath): \(size)")
-      dirSizes[dirPath] = size
+      var newSizes = dirSizes
+      newSizes[dirPath] = size
 
       for d in directories {
-        d.gatherSizes(&dirSizes)
+        newSizes = d.gatherSizes(newSizes)
       }
+
+      return newSizes
     }
 
     var size: Int {
