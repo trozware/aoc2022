@@ -3,7 +3,9 @@
 import Foundation
 
 func day14(testData: [String], realData: [String]) {
-  let expectedTestResults = [1, 2]
+  let expectedTestResults = [1, 2]    // Part 1
+  // let expectedTestResults = [1, 2]    // Part 2
+
   let testResults = runCode(data: testData)
 
   if testResults != expectedTestResults {

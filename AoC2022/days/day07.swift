@@ -4,7 +4,7 @@ import Foundation
 
 func day07(testData: [String], realData: [String]) {
   // let expectedTestResults = 95437    // Part 1
-  let expectedTestResults = 24933642
+  let expectedTestResults = 24933642    // Part 2
 
   let testResults = runCode(data: testData)
 
