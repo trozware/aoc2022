@@ -28,64 +28,111 @@ func day02(testData: [String], realData: [String]) {
       let elfMove = line[0]
       let yourMove = line[2]
 
-      // totalScore += gameResult1(elfMove, yourMove)  // Part 1: 13052
-      totalScore += gameResult2(elfMove, yourMove)  // Part 1: 13693
+      // totalScore += calcTotalscore1(elfMove, yourMove)  // Part 1: 13052
+      totalScore += calcTotalscore2(elfMove, yourMove)  // Part 2: 13693
     }
 
     return totalScore
   }
 
-  func gameResult1(_ elf: String, _ you: String) -> Int {
-    let elfPlays = ["A": "Rock", "B": "Paper", "C": "Scissors"]
-    let yourPlays = ["X": "Rock", "Y": "Paper", "Z": "Scissors"]
-    let yourPoints = ["Rock": 1, "Paper": 2, "Scissors": 3]
-    let gameResults = [
-      "Rock-Rock": 3,
-      "Rock-Paper": 6,
-      "Rock-Scissors": 0,
-      "Paper-Rock": 0,
-      "Paper-Paper": 3,
-      "Paper-Scissors": 6,
-      "Scissors-Rock": 6,
-      "Scissors-Paper": 0,
-      "Scissors-Scissors": 3
-    ]
+  func calcTotalscore1(_ elf: String, _ you: String) -> Int {
+    let elfGame = Game.create(from: elf)
 
-    let elfChoice = elfPlays[elf]!
-    let yourChoice = yourPlays[you]!
-    let yourPoint = yourPoints[yourChoice]!
+    let yourGame = Game.create(from: you)
+    let yourScore = yourGame.rawValue
 
-    let game = "\(elfChoice)-\(yourChoice)"
-    let result = gameResults[game]!
+    let gameResult = GameResult.result(elf: elfGame, you: yourGame)
+    let gameScore = gameResult.rawValue
 
-    return result + yourPoint
+    return gameScore + yourScore
   }
 
-  func gameResult2(_ elf: String, _ result: String) -> Int {
-    let elfPlays = ["A": "Rock", "B": "Paper", "C": "Scissors"]
-    let yourResults = ["X": "lose", "Y": "draw", "Z": "win"]
-    let yourPoints = ["Rock": 1, "Paper": 2, "Scissors": 3]
-    let gameResults = [
-      "Rock-lose": "Scissors",
-      "Rock-win": "Paper",
-      "Rock-draw": "Rock",
-      "Paper-lose": "Rock",
-      "Paper-win": "Scissors",
-      "Paper-draw": "Paper",
-      "Scissors-lose": "Paper",
-      "Scissors-win": "Rock",
-      "Scissors-draw": "Scissors"
-    ]
-    let resultPoints = ["lose": 0, "draw": 3, "win": 6]
+  func calcTotalscore2(_ elf: String, _ result: String) -> Int {
+    let elfGame = Game.create(from: elf)
 
-    let elfChoice = elfPlays[elf]!
-    let yourResult = yourResults[result]!
+    let gameResult = GameResult.create(from: result)
+    let gameScore = gameResult.rawValue
 
-    let game = "\(elfChoice)-\(yourResult)"
-    let yourChoice = gameResults[game]!
-    let yourPoint = yourPoints[yourChoice]!
+    let yourGame = elfGame.move(for: gameResult)
+    let yourScore = yourGame.rawValue
 
-    let score = yourPoint + resultPoints[yourResult]!
-    return score
+    return gameScore + yourScore
+  }
+
+  enum Game: Int {
+    case Rock = 1
+    case Paper
+    case Scissors
+
+    static func create(from char: String) -> Game {
+      switch char {
+      case "A", "X":
+        return .Rock
+      case "B", "Y":
+        return .Paper
+      default:
+        return .Scissors
+      }
+    }
+
+    func winningMove() -> Game {
+      switch self {
+      case .Rock:
+        return .Paper
+      case .Paper:
+        return .Scissors
+      case .Scissors:
+        return .Rock
+      }
+    }
+
+    func losingMove() -> Game {
+      switch self {
+      case .Rock:
+        return .Scissors
+      case .Paper:
+        return .Rock
+      case .Scissors:
+        return .Paper
+      }
+    }
+
+    func move(for gameResult: GameResult) -> Game {
+      switch gameResult {
+      case .win:
+        return winningMove()
+      case .loss:
+        return losingMove()
+      case .draw:
+        return self
+      }
+    }
+  }
+
+  enum GameResult: Int {
+    case win = 6
+    case loss = 0
+    case draw = 3
+
+    static func result(elf: Game, you: Game) -> GameResult {
+      if elf == you {
+        return .draw
+      }
+      if you == elf.winningMove() {
+        return .win
+      }
+      return .loss
+    }
+
+    static func create(from char: String) -> GameResult {
+      switch char {
+      case "X":
+        return .loss
+      case "Y":
+        return .draw
+      default:
+        return .win
+      }
+    }
   }
 }
