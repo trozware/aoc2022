@@ -24,6 +24,7 @@ func day07(testData: [String], realData: [String]) {
   func runCode(data: [String]) -> Int {
     let rootDir = Directory(name: "/")
     var currentDir: Directory = rootDir
+    var allDirs: [Directory] = [rootDir]
 
     for line in data {
       if line == "$ ls" {
@@ -36,7 +37,9 @@ func day07(testData: [String], realData: [String]) {
           continue
         }
         if dirName == "..", let parent = currentDir.parent {
-            currentDir = parent
+          currentDir = parent
+        } else if dirName == "/" {
+          currentDir = rootDir
         } else {
           let existingDir = currentDir.directories.first { $0.name == dirName }
           if let existingDir {
@@ -46,6 +49,7 @@ func day07(testData: [String], realData: [String]) {
             newDir.parent = currentDir
             currentDir.directories.append(newDir)
             currentDir = newDir
+            allDirs.append(newDir)
           }
         }
       } else if line.hasPrefix("dir") {
@@ -53,6 +57,7 @@ func day07(testData: [String], realData: [String]) {
         let newDir = Directory(name: dirName)
         newDir.parent = currentDir
         currentDir.directories.append(newDir)
+        allDirs.append(newDir)
       } else {
         let parts = line.components(separatedBy: " ")
         let newFile = File(name: parts[1], size: Int(parts[0]) ?? 0)
@@ -63,16 +68,11 @@ func day07(testData: [String], realData: [String]) {
     //    print(rootDir)
     //    print()
 
-    let dirSizes = rootDir.gatherSizes([:])
-
-    //    print()
-    //    print(dirSizes)
-    //    print()
-
     // Part 1
     //
     //    var smallDirSize = 0
-    //    for (_, size) in dirSizes {
+    //    for dir in allDirs {
+    //      let size = dir.size
     //      if size <= 100_000 {
     //        smallDirSize += size
     //      }
@@ -85,12 +85,13 @@ func day07(testData: [String], realData: [String]) {
     let totalSpace = 70_000_000
     let requiredSpace = 30_000_000
 
-    let freeSpace = totalSpace - dirSizes["/"]!
+    let freeSpace = totalSpace - rootDir.size
     let spaceToDelete = requiredSpace - freeSpace
     print(spaceToDelete)
 
     var bytes: [Int] = []
-    for (_, size) in dirSizes {
+    for dir in allDirs {
+      let size = dir.size
       if size >= spaceToDelete {
         bytes.append(size)
       }
@@ -112,18 +113,6 @@ func day07(testData: [String], realData: [String]) {
       self.name = name
     }
 
-    func gatherSizes(_ dirSizes: [String: Int]) -> [String: Int] {
-      // print("\(dirPath): \(size)")
-      var newSizes = dirSizes
-      newSizes[dirPath] = size
-
-      for d in directories {
-        newSizes = d.gatherSizes(newSizes)
-      }
-
-      return newSizes
-    }
-
     var size: Int {
       var fileSizes = files.reduce(0) { $0 + $1.size }
 
@@ -132,18 +121,6 @@ func day07(testData: [String], realData: [String]) {
       }
 
       return fileSizes
-    }
-
-    var dirPath: String {
-      var path = [name]
-
-      var nextParent = parent
-      while nextParent != nil {
-        path.append(nextParent!.name)
-        nextParent = nextParent?.parent
-      }
-
-      return path.reversed().joined(separator: "/")
     }
 
     // for debug printing
