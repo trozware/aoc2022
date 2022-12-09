@@ -80,3 +80,9 @@ public extension String {
     return paddedString
   }
 }
+
+
+struct Location: Equatable, Hashable {
+  var row: Int
+  var col: Int
+}

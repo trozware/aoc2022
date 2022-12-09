@@ -156,8 +156,3 @@ func day08(testData: [String], realData: [String]) {
     return score
   }
 }
-
-struct Location: Equatable, Hashable {
-  let row: Int
-  let col: Int
-}
