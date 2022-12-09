@@ -22,22 +22,20 @@ func day08(testData: [String], realData: [String]) {
   print("Results:", realResults)
 
   func runCode(data: [String]) -> Int {
-    var trees: [String: Int] = [:]
+    var trees: [Location: Int] = [:]
     let totalRows = data.count
     let treesPerRow = data[0].count
 
     for rowNum in 0 ..< data.count {
       let row = data[rowNum]
       for colNum in 0 ..< treesPerRow {
-        trees["\(rowNum),\(colNum)"] = Int(row[colNum])
+        trees[Location(row: rowNum, col: colNum)] = Int(row[colNum])
       }
     }
 
     //    var visibleTrees = 0
     //    for (loc, height) in trees {
-    //      let (row, col) = locToTuple(loc)
-    //
-    //      let vis = isVisible(trees: trees, row: row, col: col, treeHeight: height, totalRows: totalRows, treesPerRow: treesPerRow)
+    //      let vis = isVisible(trees: trees, row: loc.row, col: loc.col, treeHeight: height, totalRows: totalRows, treesPerRow: treesPerRow)
     //      if vis {
     //        // print("Row: \(row), col: \(col), height: \(height)")
     //        visibleTrees += 1
@@ -48,9 +46,7 @@ func day08(testData: [String], realData: [String]) {
 
     var maxScore = 0
     for (loc, height) in trees {
-      let (row, col) = locToTuple(loc)
-
-      let score = scenicScore(trees: trees, row: row, col: col, treeHeight: height, totalRows: totalRows, treesPerRow: treesPerRow)
+      let score = scenicScore(trees: trees, row: loc.row, col: loc.col, treeHeight: height, totalRows: totalRows, treesPerRow: treesPerRow)
       if score > maxScore {
         maxScore = score
       }
@@ -59,12 +55,7 @@ func day08(testData: [String], realData: [String]) {
     return maxScore    // Part 2: 209880
   }
 
-  func locToTuple(_ loc: String) -> (Int, Int) {
-    let parts = loc.components(separatedBy: ",")
-    return (Int(parts[0]) ?? 0, Int(parts[1]) ?? 0)
-  }
-
-  func isVisible(trees: [String: Int], row: Int, col: Int, treeHeight: Int, totalRows: Int, treesPerRow: Int) -> Bool {
+  func isVisible(trees: [Location: Int], row: Int, col: Int, treeHeight: Int, totalRows: Int, treesPerRow: Int) -> Bool {
     if row == 0 || row == trees.count - 1 {
       return true
     }
@@ -76,7 +67,7 @@ func day08(testData: [String], realData: [String]) {
     // to the left
     var freeOnLeft = true
     for index in stride(from: col - 1, through: 0, by: -1) {
-      if let nearTree = trees["\(row),\(index)"], nearTree >= treeHeight {
+      if let nearTree = trees[Location(row: row, col: index)], nearTree >= treeHeight {
         freeOnLeft = false
         break
       }
@@ -88,7 +79,7 @@ func day08(testData: [String], realData: [String]) {
     // to the right
     var freeOnRight = true
     for index in stride(from: col + 1, to: treesPerRow, by: 1) {
-      if let nearTree = trees["\(row),\(index)"], nearTree >= treeHeight {
+      if let nearTree = trees[Location(row: row, col: index)], nearTree >= treeHeight {
         freeOnRight = false
         break
       }
@@ -100,7 +91,7 @@ func day08(testData: [String], realData: [String]) {
     // to the top
     var freeOnTop = true
     for index in stride(from: row - 1, through: 0, by: -1) {
-      if let nearTree = trees["\(index),\(col)"], nearTree >= treeHeight {
+      if let nearTree = trees[Location(row: index, col: col)], nearTree >= treeHeight {
         freeOnTop = false
         break
       }
@@ -112,7 +103,7 @@ func day08(testData: [String], realData: [String]) {
     // to the bottom
     var freeOnBottom = true
     for index in stride(from: row + 1, to: totalRows, by: 1) {
-      if let nearTree = trees["\(index),\(col)"], nearTree >= treeHeight {
+      if let nearTree = trees[Location(row: index, col: col)], nearTree >= treeHeight {
         freeOnBottom = false
         break
       }
@@ -124,12 +115,12 @@ func day08(testData: [String], realData: [String]) {
     return false
   }
 
-  func scenicScore(trees: [String: Int], row: Int, col: Int, treeHeight: Int, totalRows: Int, treesPerRow: Int) -> Int {
+  func scenicScore(trees: [Location: Int], row: Int, col: Int, treeHeight: Int, totalRows: Int, treesPerRow: Int) -> Int {
     // to the left
     var viewLeft = 0
     for index in stride(from: col - 1, through: 0, by: -1) {
       viewLeft += 1
-      if let nearTree = trees["\(row),\(index)"], nearTree >= treeHeight {
+      if let nearTree = trees[Location(row: row, col: index)], nearTree >= treeHeight {
         break
       }
     }
@@ -138,7 +129,7 @@ func day08(testData: [String], realData: [String]) {
     var viewRight = 0
     for index in stride(from: col + 1, to: treesPerRow, by: 1) {
       viewRight += 1
-      if let nearTree = trees["\(row),\(index)"], nearTree >= treeHeight {
+      if let nearTree = trees[Location(row: row, col: index)], nearTree >= treeHeight {
         break
       }
     }
@@ -147,7 +138,7 @@ func day08(testData: [String], realData: [String]) {
     var viewTop = 0
     for index in stride(from: row - 1, through: 0, by: -1) {
       viewTop += 1
-      if let nearTree = trees["\(index),\(col)"], nearTree >= treeHeight {
+      if let nearTree = trees[Location(row: index, col: col)], nearTree >= treeHeight {
         break
       }
     }
@@ -156,7 +147,7 @@ func day08(testData: [String], realData: [String]) {
     var viewBottom = 0
     for index in stride(from: row + 1, to: totalRows, by: 1) {
       viewBottom += 1
-      if let nearTree = trees["\(index),\(col)"], nearTree >= treeHeight {
+      if let nearTree = trees[Location(row: index, col: col)], nearTree >= treeHeight {
         break
       }
     }
@@ -164,4 +155,9 @@ func day08(testData: [String], realData: [String]) {
     let score = viewLeft * viewRight * viewTop * viewBottom
     return score
   }
+}
+
+struct Location: Equatable, Hashable {
+  let row: Int
+  let col: Int
 }
