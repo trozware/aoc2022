@@ -23,7 +23,7 @@ func day09(testData: [String], realData: [String]) {
 
   func runCode(data: [String]) -> Int {
     var headLoc = Location(row: 0, col: 0)
-    var tailLoc = Location(row: 0, col: 0)
+    let tailLoc = Location(row: 0, col: 0)          // var for Part 1
     var visitedLocs: Set<Location> = [tailLoc]
 
     //    for line in data {
