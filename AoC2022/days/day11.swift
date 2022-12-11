@@ -33,9 +33,11 @@ func day11(testData: [String], realData: [String]) {
 
     let product = Int(monkeys.reduce(1) { $0 * $1.testDivider})
 
+    // Part 1: loop 20 times, Part 2: loop 10_000 times
     for _ in 1 ... 10_000 {
       for monkey in monkeys {
         for item in monkey.items {
+          // Part 1: divideWorryBy is 3, Part 2: divideWorryBy is 0
           let (newItem, destination) = monkey.valueAndDestinationForItem(item, divideWorryBy: 0, mod: product)
           monkeys[destination].items.append(newItem)
         }
@@ -125,8 +127,10 @@ func day11(testData: [String], realData: [String]) {
       }
 
       if divideWorryBy == 0 {
+        // Part 2
         newItem = newItem % mod
       } else {
+        // Part 1
         newItem /= divideWorryBy
       }
 

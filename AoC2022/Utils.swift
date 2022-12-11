@@ -81,7 +81,6 @@ public extension String {
   }
 }
 
-
 struct Location: Equatable, Hashable {
   var row: Int
   var col: Int
