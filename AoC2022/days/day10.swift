@@ -53,8 +53,8 @@ func day10(testData: [String], realData: [String]) {
     var startOffset = 0
 
     for drawLine in 0 ..< 6 {
-      row = Array(repeating: ".", count: 40)
-      //      row[0] = "#"
+      row = Array(repeating: " ", count: 40)
+      row[0] = "#"
       spritePos = 1
       startOffset = drawLine * 40
 
