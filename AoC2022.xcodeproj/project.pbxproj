@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26071F21298789C70021C41E /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 26071F20298789C70021C41E /* Algorithms */; };
 		262DD0132939C76A0004BC68 /* data in CopyFiles */ = {isa = PBXBuildFile; fileRef = 262DD0122939C7580004BC68 /* data */; };
 		2638DD8229387148006198DA /* test in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2638DD8029387130006198DA /* test */; };
 		267873D62938227A00638D98 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267873D52938227A00638D98 /* main.swift */; };
@@ -92,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26071F21298789C70021C41E /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +177,9 @@
 			dependencies = (
 			);
 			name = AoC2022;
+			packageProductDependencies = (
+				26071F20298789C70021C41E /* Algorithms */,
+			);
 			productName = AoC2022;
 			productReference = 267873D22938227A00638D98 /* AoC2022 */;
 			productType = "com.apple.product-type.tool";
@@ -187,7 +192,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					267873D12938227A00638D98 = {
 						CreatedOnToolsVersion = 14.1;
@@ -203,6 +208,9 @@
 				Base,
 			);
 			mainGroup = 267873C92938227A00638D98;
+			packageReferences = (
+				26071F1F298789C70021C41E /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = 267873D32938227A00638D98 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -284,6 +292,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -344,6 +353,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -367,7 +377,9 @@
 		267873DA2938227A00638D98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -376,7 +388,9 @@
 		267873DB2938227A00638D98 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -404,6 +418,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		26071F1F298789C70021C41E /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		26071F20298789C70021C41E /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26071F1F298789C70021C41E /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 267873CA2938227A00638D98 /* Project object */;
 }
